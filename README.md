@@ -78,6 +78,8 @@ NEES API keys are currently issued manually for early reviewers and selected bui
 
 ## Quickstart
 
+For the fastest first test, see the [15-Minute Integration Guide](docs/15-minute-integration-guide.md).
+
 ### 1. Request a Developer API Key
 
 NEES Core Engine is currently available through controlled developer preview.
@@ -114,21 +116,21 @@ print(response.json())
 Node.js example:
 
 ```js
-const response = await fetch("https://api.nees.cloud/chat", {
-  method: "POST",
+const response = await fetch('https://api.nees.cloud/chat', {
+  method: 'POST',
   headers: {
-    "Authorization": "Bearer YOUR_NEES_API_KEY",
-    "Content-Type": "application/json"
+    Authorization: 'Bearer YOUR_NEES_API_KEY',
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify({
-    message: "Respond as a governed assistant",
-    mode: "supportive",
-    session_id: "demo-session"
-  })
-});
+    message: 'Respond as a governed assistant',
+    mode: 'supportive',
+    session_id: 'demo-session',
+  }),
+})
 
-const data = await response.json();
-console.log(data);
+const data = await response.json()
+console.log(data)
 ```
 
 ---
@@ -222,8 +224,8 @@ Open an issue using the **Feedback** template.
 
 **Nainacore Emotional Tech**
 
-Official website: https://www.nainaaicreation.com  
-Product hub: https://nees.cloud  
+Official website: https://www.nainaaicreation.com
+Product hub: https://nees.cloud
 Live API: https://api.nees.cloud
 
 ---
