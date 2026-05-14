@@ -11,6 +11,32 @@ The first win is seeing the difference between a direct model call and a governe
 
 ---
 
+## Who This Is For
+
+NEES Core Engine is for builders working on:
+
+- AI agents
+- customer-support copilots
+- internal AI assistants
+- workflow automation tools
+- AI products using memory, tools, roles, or escalation logic
+
+If your AI app needs consistent behavior, traceability, memory boundaries, or reviewable decisions, this preview is designed for you.
+
+---
+
+## Try NEES Core Engine When
+
+- your AI agent drifts from its role
+- prompts are not enough to control behavior
+- memory or context scope becomes unclear
+- tool/action permissions need governance
+- debugging AI behavior becomes difficult
+- you need trace IDs and reviewable decisions
+- you want to test behavioral governance before production
+
+---
+
 ## Who This Guide Is For
 
 This guide is for:
@@ -372,24 +398,27 @@ The GitHub repository is mainly for API docs, quickstarts, and developer preview
 
 ---
 
-## 12. Share Feedback
+## 12. Feedback We Want Most
 
-After testing, please open a feedback issue.
+If you test NEES Core Engine, we are especially interested in:
 
-Useful feedback includes:
-
-- Was the first request easy to run?
-- Was the API contract clear?
-- Did the trace ID feel useful?
-- Was the governance metadata understandable?
-- What field did you expect but not see?
-- What SDK or integration would help you most?
-- Would you use this in a real AI product?
+- where the API feels unclear
+- whether trace IDs help debugging
+- whether governance metadata is useful
+- where fallback or escalation behavior feels incomplete
+- what fields your production AI app would need
+- what would stop you from integrating this into a real workflow
 
 Feedback template:
 
 ```txt
 .github/ISSUE_TEMPLATE/feedback.md
+```
+
+I'd genuinely suggest trying NEES Core Engine once in a real or simulated AI workflow:
+
+```txt
+https://github.com/NEES-Anna/nees-core-developer-preview
 ```
 
 ---
