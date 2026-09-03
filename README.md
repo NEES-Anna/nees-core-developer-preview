@@ -2,7 +2,7 @@
 
 **Public evaluation, integration, and evidence surface for NEES Core Engine V2.**
 
-NEES Core Engine is a governed AI runtime that sits between an application and its model provider. It evaluates request intent, authority, policy boundaries, memory/context scope, cost constraints, routing, and execution conditions before a response or action is allowed to continue.
+NEES Core Engine is a governed AI runtime that sits between an application request and model/tool execution. It evaluates request meaning, requested operation or capability, authority, consequence, policy boundaries, action/tool permission, and response permission before the workflow continues.
 
 > This repository does **not** expose the private NEES Core Engine source code.
 >
@@ -17,7 +17,7 @@ NEES Core Engine is a governed AI runtime that sits between an application and i
 RC2 includes:
 
 - request understanding for informational and action-oriented requests
-- intent classification across explain, guidance, mutate, and execute paths
+- intent classification across explain, guidance, read, mutate, and execute paths
 - resource, scope, sensitivity, authority, and side-effect interpretation
 - semantic-assisted understanding
 - governance decisions: **ALLOW, CLARIFY, ESCALATE, REFUSE/BLOCK**
@@ -29,6 +29,8 @@ RC2 includes:
 - trace metadata, policy lineage, and audit-oriented observability
 
 RC2 is feature-complete for its agreed core scope. Future changes should be driven by real usage, deployment hardening, developer feedback, regressions, or new evidence.
+
+NEES is not a chatbot, a model replacement, a generic prompt filter, universal AI safety, or production-certified infrastructure.
 
 ---
 
@@ -76,6 +78,17 @@ See [Architecture](docs/architecture.md) and [Governance Decision Model](docs/go
 
 ---
 
+## Core Testing Principle
+
+Do not evaluate only the assistant reply. For every meaningful test, inspect both:
+
+- the final assistant response
+- the governance metadata returned with the response
+
+The most important behavior to evaluate is separation between useful response and risky execution. Safe informational assistance may remain allowed even when a requested action or tool operation is restricted.
+
+---
+
 ## Governance Decisions
 
 ### ALLOW
@@ -108,7 +121,7 @@ Use it to test:
 - session/context continuity and boundary behavior
 - traceability and structured governance evidence
 
-Product hub: **https://nees.cloud**
+**Website:** https://nees.cloud
 
 The Governance Lab is intended to make governance behavior observable instead of asking developers to trust a marketing claim.
 
@@ -142,7 +155,7 @@ Actual governance decision:
 Expected action state:
 Actual action state:
 Session/context setup:
-Trace ID or evidence (if available):
+Request ID / Trace ID (if available):
 Why the result appears incorrect:
 Reproduction steps:
 ```
@@ -171,10 +184,18 @@ Read [Naina Persona Reference Implementation](docs/naina-persona-reference.md).
 
 ## Quick Integration
 
-The public API remains available at:
+Hosted Developer Preview API:
 
 ```txt
 https://api.nees.cloud
+```
+
+Public endpoints:
+
+```txt
+GET /health
+GET /ready
+POST /chat
 ```
 
 Basic request:
@@ -183,12 +204,15 @@ Basic request:
 curl -X POST "https://api.nees.cloud/chat" \
   -H "Authorization: Bearer YOUR_NEES_API_KEY" \
   -H "Content-Type: application/json" \
+  -H "X-API-Version: v1" \
   -d '{
-    "message": "Explain AI governance in simple terms.",
-    "mode": "supportive",
-    "session_id": "developer-preview-test"
+    "prompt": "Explain AI governance in simple terms.",
+    "session_id": "developer-preview-test",
+    "mode": "public"
   }'
 ```
+
+`prompt` is required. `session_id` is optional but recommended for grouping related test turns.
 
 For onboarding, see:
 
@@ -199,7 +223,36 @@ For onboarding, see:
 - [Node.js example](examples/node_quickstart.js)
 - [cURL example](examples/curl_quickstart.md)
 
-API fields and preview behavior may evolve as evidence is collected.
+Never expose real API keys in client-side production code, screenshots, logs, source control, or feedback reports.
+
+---
+
+## What To Inspect
+
+Useful public response fields may include:
+
+- `reply`
+- `session_id`
+- `mode`
+- `request_id`
+- `trace_id`
+- `engine_source`
+- `governance`
+
+Useful governance metadata may include:
+
+- `policy_decision`
+- `policy_status`
+- `consequence_severity`
+- `authority_state`
+- `authorization_required`
+- `requested_capability`
+- `request_understanding`
+- `governance_action_plan`
+- `semantic_status`
+- `semantic_output_mode`
+
+Some fields are conditional and may be absent depending on request type, context, configuration, and provider path.
 
 ---
 
@@ -263,32 +316,41 @@ Architecture documentation describes observable/public system behavior without p
 
 ---
 
+## Developer Preview Limitations
+
+This is a Developer Preview, not production-ready infrastructure. Semantic/provider availability can affect behavior and latency. Some ambiguous, indirect, or context-heavy phrasing may require clarification. Broader real-world integration behavior is still being evaluated.
+
+RC2 has completed internal automated and Governance Lab validation. It should still be tested inside bounded workflows before any production use.
+
+---
+
 ## Developer Feedback
 
 We are especially interested in evidence about:
 
-- wrong governance decisions
-- false positives and false negatives
-- ambiguous-intent handling
-- authority and resource-boundary mistakes
+- false allow
+- false restriction
+- unnecessary clarification
+- wrong authority assessment
+- wrong resource or request classification
 - session/context leakage
 - action/no-action enforcement failures
-- trace usefulness
+- confusing governance metadata
+- latency or provider/fallback issues
+- inconsistent repeated outcomes
 - integration friction
-- API contract clarity
-- missing real-world governance cases
 
 Use the GitHub issue templates so reports remain reproducible and reviewable.
 
 ---
 
-## Built By
+## Contact
 
 **Nainacore Emotional Tech**
 
-- Company: https://www.nainaaicreation.com
-- NEES product hub: https://nees.cloud
+- Website: https://nees.cloud
 - Runtime API: https://api.nees.cloud
+- Email: info@nees.cloud
 
 ---
 
