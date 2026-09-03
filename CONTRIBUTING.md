@@ -1,74 +1,97 @@
-# Contributing to NEES Core Engine Developer Preview
+# Contributing to NEES Core Engine V2 Developer Preview
 
-Thank you for your interest in NEES Core Engine.
+Thank you for helping evaluate NEES Core Engine V2 RC2.
 
-This repository is intended for developer preview, API review, documentation feedback, example improvements, and early use-case discussion.
+This repository is a public developer-preview surface for documentation, integration examples, governance evaluation, reproducible evidence, and developer feedback.
+
+It does **not** contain or accept contributions to the private NEES Core Engine implementation.
 
 ---
 
-## What You Can Contribute
+## High-Value Contributions
 
-You can contribute by:
+The most useful contributions include:
 
-- Reporting bugs in examples or documentation
-- Suggesting improvements to the API documentation
-- Sharing developer experience feedback
-- Suggesting real-world AI governance use cases
-- Improving quickstart examples
-- Requesting SDK support for specific languages
-- Asking technical questions about integration
+- reproducible wrong-governance-decision reports
+- false allow / false block evidence
+- ambiguity-handling failures
+- action/no-action enforcement failures
+- session/context boundary issues
+- integration contract failures
+- API and documentation improvements
+- quickstart improvements
+- real-world governance use cases
+- SDK or developer-experience suggestions
+
+If you believe NEES made the wrong governance decision, use the **Governance Challenge** issue template.
+
+---
+
+## Issue Types
+
+Use the closest template:
+
+- **Governance Challenge** — wrong, inconsistent, or incorrectly integrated governance behavior
+- **Bug Report** — documentation, examples, API usage, or other developer-preview defects
+- **Developer Feedback** — broader product, API, governance, or developer-experience feedback
+- **API Key Request** — request controlled developer-preview access
 
 ---
 
 ## What This Repo Does Not Accept
 
-This public repository does not accept contributions related to:
+Do not submit:
 
-- Private NEES Core Engine source code
-- Internal governance policy logic
-- Production secrets or credentials
-- Admin endpoint access
-- Sensitive security bypasses
-- Unverified claims about production behavior
+- private NEES Core Engine source code
+- guessed or reconstructed proprietary governance logic
+- internal policy files
+- production credentials or secrets
+- private admin endpoint information
+- sensitive personal data
+- exploit details that create immediate security risk
 
-If you discover a serious security concern, please avoid public disclosure and contact Nainacore Emotional Tech directly through the official website.
-
-Official website: https://www.nainaaicreation.com
-
----
-
-## Opening Issues
-
-Please use the correct issue template:
-
-- **API Key Request** — request developer preview access
-- **Feedback** — share API/docs/governance feedback
-- **Bug Report** — report a problem with examples or docs
+Serious security concerns should be reported privately through Nainacore Emotional Tech's official website rather than disclosed publicly.
 
 ---
 
 ## Pull Requests
 
-Pull requests are welcome for:
+Pull requests are welcome for public-surface improvements such as:
 
-- Typo fixes
-- Documentation improvements
-- Example code improvements
-- Additional quickstart examples
-- Better error handling in examples
+- documentation fixes
+- clearer diagrams or explanations
+- example code improvements
+- additional safe integration examples
+- better error handling in examples
+- additional developer-testing guidance
 
-Before submitting a pull request:
+Before submitting:
 
-1. Keep changes small and focused.
-2. Do not include API keys or secrets.
-3. Do not add unnecessary dependencies.
-4. Do not expose private implementation assumptions.
-5. Explain why the change improves developer experience.
+1. Keep the change focused.
+2. Do not include API keys, secrets, or private data.
+3. Do not claim knowledge of undisclosed implementation details.
+4. Keep assurance and safety claims evidence-bounded.
+5. Explain how the change improves developer understanding, testing, or reproducibility.
 
 ---
 
-## Developer Preview Note
+## Evidence Quality
 
-NEES Core Engine is currently in controlled developer preview.
+A useful governance report separates the **Core decision** from the **downstream integration behavior** whenever possible.
 
-The API contract, response fields, and documentation may evolve based on feedback from early builders.
+```txt
+Core decision wrong → governance decision failure
+Core decision correct + application behavior wrong → integration failure
+```
+
+Both are valuable findings.
+
+See [Challenge NEES](docs/challenge-nees.md) and [Governance Decision Model](docs/governance-decisions.md).
+
+---
+
+## Developer Preview Notice
+
+RC2 is the current developer-preview baseline for the agreed core governance scope.
+
+The public API, documentation, integration guidance, and future release behavior may evolve based on real usage, regressions, developer evidence, and independent assurance work.
