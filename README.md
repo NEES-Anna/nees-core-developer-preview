@@ -1,5 +1,10 @@
 # NEES Core Engine V2 — Developer Preview RC2
 
+[![Status](https://img.shields.io/badge/status-controlled%20developer%20preview-blue)](docs/RC2-STATUS.md)
+[![Baseline](https://img.shields.io/badge/baseline-RC2-green)](docs/RC2-STATUS.md)
+[![License](https://img.shields.io/badge/license-MIT%20(public%20repo%20materials)-brightgreen)](LICENSE)
+[![Feedback](https://img.shields.io/badge/feedback-Google%20Form-orange)](https://docs.google.com/forms/d/e/1FAIpQLSeQCG3MATzk5OGhSb77ioDIWlOwhtcNTTdpU4TIOHAeGgT_rg/viewform?usp=header)
+
 **Public evaluation, integration, and evidence surface for NEES Core Engine V2.**
 
 NEES Core Engine is a governed AI runtime that sits between an application request and model/tool execution. It evaluates request meaning, requested operation or capability, authority, consequence, policy boundaries, action/tool permission, and response permission before the workflow continues.
@@ -7,6 +12,27 @@ NEES Core Engine is a governed AI runtime that sits between an application reque
 > This repository does **not** expose the private NEES Core Engine source code.
 >
 > It exists so developers can understand the public architecture, integrate with the runtime, test governance behavior, challenge decisions, and report evidence.
+
+## Start Here
+
+| Goal | Start here |
+|---|---|
+| Understand the current RC2 baseline | [RC2 Status](docs/RC2-STATUS.md) |
+| Understand where NEES sits in an AI stack | [Architecture](docs/architecture.md) |
+| Understand ALLOW / CLARIFY / ESCALATE / BLOCK | [Governance Decision Model](docs/governance-decisions.md) |
+| Test NEES without integrating code first | [Governance Lab Guide](docs/governance-lab.md) |
+| Integrate the API | [15-Minute Integration Guide](docs/15-minute-integration-guide.md) |
+| Inspect the public API contract | [API Reference](docs/api-reference.md) |
+| Try to produce a wrong governance decision | [Challenge NEES](docs/challenge-nees.md) |
+| Submit structured developer feedback | [Google Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSeQCG3MATzk5OGhSb77ioDIWlOwhtcNTTdpU4TIOHAeGgT_rg/viewform?usp=header) |
+| Report a security issue privately | [Security Policy](SECURITY.md) |
+
+### Quick Actions
+
+- **Test the public surface:** https://nees.cloud
+- **Developer Preview API:** https://api.nees.cloud
+- **Structured feedback form:** https://docs.google.com/forms/d/e/1FAIpQLSeQCG3MATzk5OGhSb77ioDIWlOwhtcNTTdpU4TIOHAeGgT_rg/viewform?usp=header
+- **Contact:** info@nees.cloud
 
 ---
 
@@ -31,6 +57,8 @@ RC2 includes:
 RC2 is feature-complete for its agreed core scope. Future changes should be driven by real usage, deployment hardening, developer feedback, regressions, or new evidence.
 
 NEES is not a chatbot, a model replacement, a generic prompt filter, universal AI safety, or production-certified infrastructure.
+
+For the compact release-state summary, see [RC2 Status](docs/RC2-STATUS.md).
 
 ---
 
@@ -268,12 +296,30 @@ Read [Assurance Scope](docs/assurance-scope.md).
 
 ---
 
+## Feedback Paths
+
+Use the path that best matches what you found:
+
+| Finding | Best route |
+|---|---|
+| Wrong or inconsistent governance decision | GitHub **Governance Challenge** issue |
+| API/docs/integration defect | GitHub **Bug Report** issue |
+| Broader structured developer feedback | [Google Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSeQCG3MATzk5OGhSb77ioDIWlOwhtcNTTdpU4TIOHAeGgT_rg/viewform?usp=header) |
+| Security vulnerability or sensitive disclosure | `info@nees.cloud` — see [SECURITY.md](SECURITY.md) |
+
+Evidence is especially valuable when it includes sanitized `request_id`, `trace_id`, expected behavior, actual behavior, and reproduction steps.
+
+---
+
 ## What This Repository Contains
 
 ```txt
 README.md                        Public developer-preview entry point
+LICENSE                          License for public repository materials
+SECURITY.md                      Private security reporting policy
 
 docs/
+  RC2-STATUS.md                  Compact current release-state summary
   architecture.md               Public runtime architecture
   governance-decisions.md       ALLOW / CLARIFY / ESCALATE / BLOCK model
   governance-lab.md             Public evaluation guidance
@@ -321,26 +367,6 @@ Architecture documentation describes observable/public system behavior without p
 This is a Developer Preview, not production-ready infrastructure. Semantic/provider availability can affect behavior and latency. Some ambiguous, indirect, or context-heavy phrasing may require clarification. Broader real-world integration behavior is still being evaluated.
 
 RC2 has completed internal automated and Governance Lab validation. It should still be tested inside bounded workflows before any production use.
-
----
-
-## Developer Feedback
-
-We are especially interested in evidence about:
-
-- false allow
-- false restriction
-- unnecessary clarification
-- wrong authority assessment
-- wrong resource or request classification
-- session/context leakage
-- action/no-action enforcement failures
-- confusing governance metadata
-- latency or provider/fallback issues
-- inconsistent repeated outcomes
-- integration friction
-
-Use the GitHub issue templates so reports remain reproducible and reviewable.
 
 ---
 
