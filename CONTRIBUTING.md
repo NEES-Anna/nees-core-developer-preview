@@ -50,7 +50,7 @@ Do not submit:
 - sensitive personal data
 - exploit details that create immediate security risk
 
-Serious security concerns should be reported privately through Nainacore Emotional Tech's official website rather than disclosed publicly.
+Serious security concerns should be reported privately to **info@nees.cloud** rather than disclosed publicly.
 
 ---
 
@@ -95,3 +95,6 @@ See [Challenge NEES](docs/challenge-nees.md) and [Governance Decision Model](doc
 RC2 is the current developer-preview baseline for the agreed core governance scope.
 
 The public API, documentation, integration guidance, and future release behavior may evolve based on real usage, regressions, developer evidence, and independent assurance work.
+
+Website: https://nees.cloud  
+Contact: info@nees.cloud
