@@ -4,6 +4,17 @@ NEES Core Engine V2 RC2 is in developer preview.
 
 Feedback is most useful when it helps distinguish product opinion from reproducible governance evidence.
 
+## Choose the Right Feedback Route
+
+Use the route that best matches your finding:
+
+| Finding | Best route |
+|---|---|
+| Wrong or inconsistent governance decision | GitHub **Governance Challenge** issue |
+| API/docs/example/integration defect | GitHub **Bug Report** issue |
+| Broader product or developer feedback | [Google Feedback Form](https://docs.google.com/forms/d/e/1FAIpQLSeQCG3MATzk5OGhSb77ioDIWlOwhtcNTTdpU4TIOHAeGgT_rg/viewform?usp=header) |
+| Security vulnerability or sensitive disclosure | `info@nees.cloud` — see [Security Policy](../SECURITY.md) |
+
 ---
 
 ## Use the Governance Challenge Template When
@@ -24,9 +35,9 @@ See [Challenge NEES](challenge-nees.md).
 
 ---
 
-## Use General Developer Feedback When
+## Use the Google Feedback Form When
 
-Share broader feedback about:
+Use the structured feedback form for broader experience feedback such as:
 
 - API clarity
 - request/response structure
@@ -38,6 +49,10 @@ Share broader feedback about:
 - real-world use cases
 - operational concerns
 - developer ergonomics
+
+Feedback form:
+
+https://docs.google.com/forms/d/e/1FAIpQLSeQCG3MATzk5OGhSb77ioDIWlOwhtcNTTdpU4TIOHAeGgT_rg/viewform?usp=header
 
 ---
 
@@ -89,4 +104,4 @@ Never include:
 - private user data
 - sensitive infrastructure details
 
-Serious security vulnerabilities should be reported privately rather than through a public issue.
+Security-sensitive findings should be reported privately to **info@nees.cloud** rather than through a public issue or feedback form.
