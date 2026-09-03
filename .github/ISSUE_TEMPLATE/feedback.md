@@ -1,6 +1,6 @@
 ---
 name: Developer Feedback
-about: Share feedback about NEES Core Engine API, docs, examples, or governance flow
+about: Share broader feedback about NEES Core Engine V2 RC2, its API, docs, examples, or developer experience
 title: "[Feedback]: "
 labels: feedback, developer-preview
 assignees: ""
@@ -8,7 +8,12 @@ assignees: ""
 
 # Developer Feedback
 
-Thank you for testing NEES Core Engine.
+Thank you for testing NEES Core Engine V2 RC2.
+
+> If you believe NEES produced a wrong or inconsistent governance decision, please use the **Governance Challenge** template instead. For broader structured feedback, you can also use the Google form:
+> https://docs.google.com/forms/d/e/1FAIpQLSeQCG3MATzk5OGhSb77ioDIWlOwhtcNTTdpU4TIOHAeGgT_rg/viewform?usp=header
+>
+> Do not use a public issue for security-sensitive findings. Report those privately to **info@nees.cloud**.
 
 ## What were you trying to build or test?
 
@@ -16,7 +21,14 @@ Thank you for testing NEES Core Engine.
 Describe your test, project, or use case.
 ```
 
----
+## Which surface did you use?
+
+- [ ] Governance Lab
+- [ ] NEES API
+- [ ] Naina Persona / reference implementation
+- [ ] Documentation / examples
+- [ ] My own integration
+- [ ] Other
 
 ## What worked well?
 
@@ -24,60 +36,43 @@ Describe your test, project, or use case.
 Share what felt clear, useful, or promising.
 ```
 
----
-
-## What was confusing?
+## What was confusing or difficult?
 
 ```txt
-Share anything unclear in the API, docs, examples, or response format.
+Share anything unclear in the API, docs, examples, metadata, or integration flow.
 ```
 
----
+## Which governance / trace fields were useful?
 
-## Which response fields were useful?
+Examples may include:
 
-Examples:
-
-- trace_id
-- engine_source
-- governance.status
-- mode_used
-- memory_scope
+- `request_id`
+- `trace_id`
+- `policy_decision`
+- `policy_status`
+- `authority_state`
+- `requested_capability`
+- `request_understanding`
+- `governance_action_plan`
 
 ```txt
 List useful fields here.
 ```
 
----
-
-## What response fields or features felt missing?
+## What felt missing?
 
 ```txt
-Suggest missing fields, docs, SDKs, examples, or governance features.
+Suggest missing fields, documentation, SDKs, examples, testing surfaces, or governance cases.
 ```
-
----
-
-## Did traceability help?
-
-```txt
-Explain whether trace IDs or governance metadata helped you understand/debug the response.
-```
-
----
 
 ## Would you use NEES in a real AI product?
-
-Please share honestly.
 
 ```txt
 Yes / No / Maybe — and why.
 ```
 
----
-
 ## Additional Notes
 
 ```txt
-Any extra feedback.
+Any extra feedback. Do not include API keys, credentials, private user data, or production secrets.
 ```
