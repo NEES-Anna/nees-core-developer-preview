@@ -1,93 +1,138 @@
-# NEES Governance Flow
+# NEES Core Engine V2 — Governance Flow
 
-NEES Core Engine is designed as a governance runtime between an application and an AI model provider.
+NEES Core Engine V2 is designed as a governance runtime between an application and the model/tool path that may produce a response or external action.
 
-Most AI applications follow this pattern:
-
-```txt
-User → App → Model Provider → Response
-```
-
-NEES adds a governance layer:
+A basic AI path often looks like this:
 
 ```txt
-User
-  ↓
-Application
-  ↓
-NEES Core Engine
-  ↓
-Governance Runtime
-  ↓
-Model Provider
-  ↓
-Governed Response
+User → Application → Model / Tool → Response / Action
+```
+
+With NEES Core Engine V2:
+
+```txt
+User Request
+    ↓
+Application / Agent
+    ↓
+NEES Core Engine V2
+    ↓
+Request Understanding
+    ↓
+Governance Intent Frame
+    ↓
+Policy / Resource / Authority / Context Evaluation
+    ↓
+Cost / Routing / Cache Governance
+    ↓
+ALLOW | CLARIFY | ESCALATE | BLOCK
+    ↓
+Model / Tool / No Action
+    ↓
+Governed Response + Trace Evidence
 ```
 
 ---
 
-## Core Governance Concepts
+## Request Understanding
 
-### 1. Policy Control
+RC2 evaluates whether a request is informational or action-oriented and can distinguish paths such as:
 
-NEES can apply runtime policy rules before a response is returned to the user.
+- explain
+- guidance
+- mutate
+- execute
 
-Policy control helps ensure that AI behavior follows the expected boundaries of the application.
-
----
-
-### 2. Identity Rules
-
-AI products often need a consistent assistant identity, role, tone, or operating mode.
-
-NEES helps preserve identity behavior across interactions.
+It can also interpret resource, scope, sensitivity, authority requirements, and side-effect implications with semantic assistance.
 
 ---
 
-### 3. Memory Scope
+## Intent and Resource Separation
 
-Memory can improve continuity, but uncontrolled memory can create privacy and reliability risks.
+The GovernanceIntentFrame helps distinguish between:
 
-NEES is designed around governed memory scope, helping determine what context should or should not influence a response.
+- mentioning a resource
+- requesting an operation against a resource
+- describing a concept
+- asking the application to execute a capability
 
----
-
-### 4. Runtime Mode
-
-Different use cases may require different runtime modes.
-
-Examples:
-
-- Supportive assistant
-- Strategic assistant
-- Educational assistant
-- Customer support assistant
-- Internal workflow assistant
-
-Mode metadata helps applications control how the AI should behave.
+This matters because a resource reference alone should not be treated as authority to modify or act on that resource.
 
 ---
 
-### 5. Traceability
+## Governance Decisions
 
-Each governed interaction may return a trace ID.
+### ALLOW
 
-Traceability helps developers review, debug, audit, and understand AI behavior.
+The request is sufficiently understood and permitted to continue within the governed path.
+
+### CLARIFY
+
+Material information is missing or ambiguous. The system should request clarification before an external action proceeds.
+
+```txt
+CLARIFY → NO ACTION
+```
+
+### ESCALATE
+
+The request should move to a higher-assurance, higher-authority, or review-oriented path rather than silently execute normally.
+
+### REFUSE / BLOCK
+
+The requested operation is not permitted under the active governance conditions.
+
+```txt
+BLOCK → NO ACTION
+```
+
+See [Governance Decision Model](governance-decisions.md).
 
 ---
 
-## Why Governance Matters
+## Context and Memory Boundaries
 
-A prompt alone is not enough for production AI.
+Session/context continuity can affect governance decisions, so context is treated as part of the decision boundary rather than conversational decoration.
 
-Production AI needs:
+RC2 context budgeting is designed to preserve mandatory governance context while reducing lower-priority history or facts when necessary.
 
-- Controlled behavior
-- Reviewable responses
-- Safer memory boundaries
-- Role consistency
-- Policy enforcement
-- Explainability
-- Audit-friendly metadata
+Developers should actively test for stale context and cross-session influence.
 
-NEES Core Engine is built to provide that governance layer.
+---
+
+## Cost, Routing, and Cache Governance
+
+RC2 also governs operational runtime concerns:
+
+- request-level cost limits and enforcement
+- mapping routing labels to provider/model choices
+- fallback behavior where permitted
+- governed cache lookup/store behavior
+
+A cached or cheaper path should not become a bypass around governance.
+
+---
+
+## Traceability
+
+Governed interactions can expose trace-oriented metadata useful for review, debugging, policy lineage, regression analysis, and evidence collection.
+
+Traceability makes a decision inspectable; it does not replace testing of whether the decision was correct.
+
+---
+
+## Integration Boundary
+
+The consuming application must honor the governance result.
+
+A correct Core decision can still fail at the application layer if the adapter ignores or incorrectly maps the decision.
+
+The Naina Persona reference case demonstrates this difference between a **Core governance failure** and an **integration failure**.
+
+See [Naina Persona Reference Implementation](naina-persona-reference.md).
+
+---
+
+## Test the Flow
+
+Use the [Governance Lab Testing Guide](governance-lab.md) and [Challenge NEES](challenge-nees.md) to test false allows, false blocks, ambiguity handling, action/no-action enforcement, and session/context boundaries.
