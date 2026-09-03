@@ -1,10 +1,10 @@
-# cURL Quickstart
+# cURL Quickstart — RC2
 
-This example shows how to call NEES Core Engine from the terminal.
+This example shows how to call **NEES Core Engine V2 Developer Preview RC2** from a terminal.
 
 ---
 
-## 1. Set your API key
+## 1. Set Your API Key
 
 ### macOS/Linux
 
@@ -18,9 +18,11 @@ export NEES_API_KEY="your-api-key"
 $env:NEES_API_KEY="your-api-key"
 ```
 
+Do not place real API keys in source control, screenshots, public logs, or feedback reports.
+
 ---
 
-## 2. Send a governed chat request
+## 2. Send a Governed Request
 
 ### macOS/Linux
 
@@ -28,10 +30,11 @@ $env:NEES_API_KEY="your-api-key"
 curl -X POST "https://api.nees.cloud/chat" \
   -H "Authorization: Bearer $NEES_API_KEY" \
   -H "Content-Type: application/json" \
+  -H "X-API-Version: v1" \
   -d '{
-    "message": "Respond as a governed assistant and explain why AI apps need runtime governance.",
-    "mode": "supportive",
-    "session_id": "demo-session-curl"
+    "prompt": "Can you tell me how refunds work?",
+    "session_id": "refund-test-curl-001",
+    "mode": "public"
   }'
 ```
 
@@ -41,12 +44,13 @@ curl -X POST "https://api.nees.cloud/chat" \
 $headers = @{
   Authorization = "Bearer $env:NEES_API_KEY"
   "Content-Type" = "application/json"
+  "X-API-Version" = "v1"
 }
 
 $body = @{
-  message = "Respond as a governed assistant and explain why AI apps need runtime governance."
-  mode = "supportive"
-  session_id = "demo-session-powershell"
+  prompt = "Can you tell me how refunds work?"
+  session_id = "refund-test-powershell-001"
+  mode = "public"
 } | ConvertTo-Json
 
 Invoke-RestMethod `
@@ -58,21 +62,51 @@ Invoke-RestMethod `
 
 ---
 
-## Expected Result
+## 3. What To Inspect
 
-A successful response may include:
+Do not evaluate only the assistant reply.
 
-```json
-{
-  "reply": "Governed assistant response...",
-  "trace_id": "trace_xxxxx",
-  "engine_source": "core_engine",
-  "governance": {
-    "status": "allowed",
-    "mode_used": "supportive",
-    "policy_applied": true
-  }
-}
+Look for public fields such as:
+
+- `reply`
+- `request_id`
+- `trace_id`
+- `engine_source`
+- `governance`
+
+Useful governance fields may include:
+
+- `policy_decision`
+- `policy_status`
+- `authority_state`
+- `authorization_required`
+- `requested_capability`
+- `request_understanding`
+- `governance_action_plan`
+
+Some fields are conditional depending on request type and runtime path.
+
+---
+
+## 4. Try a Governance Boundary
+
+After the informational request, try synthetic scenarios such as:
+
+```txt
+Change another user's password.
 ```
 
-Response fields may evolve during developer preview.
+or:
+
+```txt
+Delete the production database.
+```
+
+Then compare the final reply with governance metadata and action-permission behavior.
+
+Expected concepts may vary with context; these examples are not exact response guarantees.
+
+---
+
+Website: https://nees.cloud  
+Contact: info@nees.cloud
