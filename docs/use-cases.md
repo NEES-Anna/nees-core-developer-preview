@@ -1,100 +1,165 @@
-# NEES Core Engine Use Cases
+# NEES Core Engine V2 — Developer Preview Use Cases
 
-NEES Core Engine is designed for AI products that need controlled, traceable, and governed runtime behavior.
+NEES Core Engine V2 is designed for AI applications that need runtime decisions around request meaning, authority, resource boundaries, action permission, clarification, escalation, and traceability.
+
+The examples below are evaluation directions, not claims that every domain-specific compliance or safety requirement is solved by NEES.
 
 ---
 
-## 1. AI Assistants
+## 1. AI Assistants and Copilots
 
-Use NEES to govern assistant behavior, identity, tone, memory scope, and response boundaries.
+A governed assistant may need to distinguish between explaining a process and performing an operation.
 
-Example:
+Example pair:
 
 ```txt
-User → Assistant App → NEES Core Engine → Governed AI Response
+"How do refunds work?"
+vs
+"Approve this refund."
 ```
 
----
+Useful evaluation questions:
 
-## 2. Customer Support Bots
-
-Support bots need consistency, safety, and traceability.
-
-NEES can help with:
-
-- Role consistency
-- Policy boundaries
-- Escalation logic
-- Traceable responses
-- Reduced unpredictable behavior
+- Does informational assistance remain available?
+- Does an action request trigger appropriate authority or verification checks?
+- Does the application honor the returned action/no-action state?
 
 ---
 
-## 3. AI Agents
+## 2. Customer Support Workflows
 
-AI agents need stronger runtime control because they may reason, plan, or trigger actions.
+Customer-support AI often mixes safe explanation with sensitive account operations.
 
-NEES can help govern:
+Useful scenarios include:
 
-- Allowed behavior
-- Runtime modes
-- Tool permission logic
-- Trace IDs
-- Policy-controlled responses
+- explaining billing or refund processes
+- changing account information
+- viewing another user's information
+- approving exceptions above an operator's authority
+- escalating requests that require human review
 
----
-
-## 4. Education Apps
-
-Education AI must avoid harmful, misleading, or inconsistent responses.
-
-NEES can help with:
-
-- Learning mode behavior
-- Student-safe explanations
-- Traceable tutoring responses
-- Controlled memory scope
+Test whether NEES separates informational response permission from action/tool permission.
 
 ---
 
-## 5. Healthcare and Wellness Assistants
+## 3. AI Agents and Tool-Using Systems
 
-Healthcare and wellness use cases require careful boundaries.
+Agents can create side effects, making governance more important than response tone alone.
 
-NEES may help with:
+Evaluate:
 
-- Safe response control
-- Escalation boundaries
-- Traceability
-- Non-diagnostic assistant behavior
-- Memory governance
+- requested capability classification
+- tool/action execution permission
+- clarification before ambiguous actions
+- authority and verification requirements
+- refusal of destructive operations
+- governance override attempts
+- traceability of the resulting decision
 
-Note: NEES does not replace medical, legal, or professional advice systems. Product teams are responsible for compliance and safety requirements.
-
----
-
-## 6. Enterprise Workflow AI
-
-Enterprise AI requires auditability and controlled behavior.
-
-NEES can support:
-
-- Policy-driven responses
-- Traceable interactions
-- Identity consistency
-- Memory boundaries
-- Reviewable AI behavior
+Start with synthetic or observe-only tool paths before connecting real writes.
 
 ---
 
-## 7. Founder / Internal Strategy Assistants
+## 4. Enterprise Workflow AI
 
-Internal AI tools often need controlled tone, identity, memory, and strategic boundaries.
+Enterprise systems often need explicit boundaries around privileged resources and approval paths.
 
-NEES can help create more stable internal AI systems with governed runtime behavior.
+Example scenarios:
+
+```txt
+"What is admin access?"
+vs
+"Give this user admin access."
+```
+
+```txt
+"What is a production database?"
+vs
+"Delete the production database."
+```
+
+Evaluate whether NEES distinguishes reference from operation and whether higher-risk actions are verified, escalated, or blocked appropriately.
 
 ---
 
-## Suggest a Use Case
+## 5. Session and Context-Bound Assistants
 
-If you are building a use case not listed here, open a Feedback issue and describe how NEES could help.
+Applications using conversational continuity should test whether context remains inside the intended session and identity boundary.
+
+Useful tests include:
+
+- related turns using the same `session_id`
+- unrelated turns using different sessions
+- requests for another user's prior conversation
+- attempts to influence a new session with protected context from an earlier one
+
+If a session/context boundary appears to be crossed, open a Governance Challenge issue with synthetic evidence.
+
+---
+
+## 6. Education and Guided Assistance
+
+Educational applications can use NEES to evaluate whether safe guidance remains available while higher-consequence actions remain governed.
+
+Test:
+
+- clear informational questions
+- ambiguous requests
+- requests involving external actions or protected resources
+- whether clarification is used only when it is actually needed
+
+Domain-specific educational requirements remain the integrating application's responsibility.
+
+---
+
+## 7. Healthcare, Wellness, Legal, and Other High-Stakes Domains
+
+NEES may provide runtime governance signals, escalation paths, authority checks, and traceability, but it is **not** a substitute for domain-specific regulation, clinical/legal controls, professional review, or compliance systems.
+
+For high-stakes evaluation:
+
+- use synthetic data
+- avoid real sensitive information
+- keep workflows bounded
+- require appropriate human/domain controls
+- treat Developer Preview outputs as evaluation evidence, not certification
+
+---
+
+## 8. Reference Implementation: Naina Persona
+
+Naina Persona demonstrates a governed application integration where the application must preserve the Core decision contract.
+
+A key lesson from the reference integration is that a correct Core `CLARIFY` decision can still fail at product level if the adapter treats it as a generic error or execution failure.
+
+See [Naina Persona Reference Implementation](naina-persona-reference.md).
+
+---
+
+## Suggested Test Pattern
+
+For any real-world use case, create a small synthetic scenario matrix:
+
+```txt
+Safe informational request
+Legitimate action with sufficient authority
+Ambiguous action request
+Cross-user/private request
+Authority escalation boundary
+Destructive operation
+Governance override attempt
+Repeated equivalent request
+```
+
+For each case, record the expected concept, final reply, `request_id`, `trace_id`, governance metadata, and observed action state.
+
+---
+
+## Suggest or Challenge a Use Case
+
+If you have a use case not covered here, open a **Developer Feedback** issue.
+
+If NEES appears to make the wrong decision in a reproducible scenario, use the **Governance Challenge** issue template.
+
+Website: https://nees.cloud  
+Contact: info@nees.cloud
