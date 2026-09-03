@@ -1,30 +1,54 @@
-MIT License
+MIT License — Public Repository Materials Only
 
 Copyright (c) 2026 Nainacore Emotional Tech
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files in this repository, to deal
-in the documentation and example code without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-sublicense, and/or sell copies of the example code, and to permit persons to
-whom the example code is furnished to do so, subject to the following
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+the public documentation and example code contained in this repository (the
+"Public Repository Materials"), to deal in the Public Repository Materials
+without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the
+Public Repository Materials, and to permit persons to whom the Public
+Repository Materials are furnished to do so, subject to the following
 conditions:
 
 The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the example code.
+copies or substantial portions of the Public Repository Materials.
 
-This license applies only to the documentation and example code contained in
-this public developer preview repository.
+SCOPE OF THIS LICENSE
 
-This license does not grant access to, ownership of, or rights over the private
-NEES Core Engine platform, production infrastructure, internal governance
-logic, private APIs, trademarks, brand assets, or proprietary systems operated
-by Nainacore Emotional Tech.
+This license applies only to the public documentation, public examples, and
+other files intentionally published in this repository for the NEES Core
+Engine V2 Developer Preview.
 
-THE SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+This license does not grant any license, access right, ownership right, or
+other permission over any material or system that is not actually published
+in this repository, including without limitation:
+
+- the private NEES Core Engine source code or implementation;
+- proprietary governance logic, internal policy logic, or internal policy
+  files;
+- hosted NEES services, production infrastructure, private endpoints, admin
+  systems, deployment configuration, or credentials;
+- private datasets, internal traces, confidential evidence, or non-public
+  operational material;
+- Nainacore Emotional Tech, NEES, Nainacore, or related trademarks, logos,
+  brand assets, trade dress, product names, or other brand identifiers; or
+- patents, patent applications, or other intellectual-property rights except
+  to the limited extent necessarily embodied in the Public Repository
+  Materials themselves.
+
+Use of the hosted NEES API or other NEES services may be subject to separate
+access rules, terms, limits, or agreements. Publication of API documentation
+or examples in this repository does not itself grant unrestricted access to a
+hosted service.
+
+No statement in this repository should be interpreted as transferring or
+open-sourcing the private NEES Core Engine platform.
+
+THE PUBLIC REPOSITORY MATERIALS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
 KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE,
-DOCUMENTATION, OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO
+EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES
+OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE PUBLIC REPOSITORY MATERIALS OR
+THE USE OR OTHER DEALINGS IN THE PUBLIC REPOSITORY MATERIALS.
