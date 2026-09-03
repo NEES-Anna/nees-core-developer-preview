@@ -1,8 +1,22 @@
 # Naina Persona — NEES Core V2 Reference Implementation
 
+**Live reference app:** https://naina.nees.cloud/
+
 Naina Persona is a real application proof surface for NEES Core Engine V2.
 
 Its value to developers is not that every application should copy the same persona design. Its value is that it demonstrates how an application layer must preserve and correctly act on governance outcomes returned by Core.
+
+---
+
+## Try the Live Reference App
+
+Open:
+
+**https://naina.nees.cloud/**
+
+Use the live application to observe how a downstream product consumes NEES Core Engine V2 governance decisions in a real interface.
+
+For deliberate governance testing and structured evidence, use the Governance Lab at https://nees.cloud. Naina Persona is best treated as a reference implementation showing how governed decisions are consumed by an application layer.
 
 ---
 
