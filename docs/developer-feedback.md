@@ -1,66 +1,92 @@
 # Developer Feedback Guide
 
-NEES Core Engine is in controlled developer preview.
+NEES Core Engine V2 RC2 is in developer preview.
 
-Your feedback helps improve the API, documentation, examples, and governance experience.
+Feedback is most useful when it helps distinguish product opinion from reproducible governance evidence.
 
 ---
 
-## What Feedback Is Most Useful?
+## Use the Governance Challenge Template When
 
-We are especially looking for feedback on:
+Open a **Governance Challenge** if you observe:
+
+- a false allow
+- a false block
+- missed ambiguity
+- unnecessary clarification
+- unnecessary escalation
+- wrong action/no-action behavior
+- cross-session or context-boundary behavior
+- inconsistent outcomes under equivalent conditions
+- an integration that mishandles a correct Core decision
+
+See [Challenge NEES](challenge-nees.md).
+
+---
+
+## Use General Developer Feedback When
+
+Share broader feedback about:
 
 - API clarity
-- Request and response structure
-- Trace ID usefulness
-- Governance metadata clarity
-- Error messages
-- Integration experience
-- Missing SDKs
-- Real-world use cases
-- Production concerns
-- Safety and reliability expectations
+- request/response structure
+- trace usefulness
+- governance metadata clarity
+- integration experience
+- documentation quality
+- missing SDKs
+- real-world use cases
+- operational concerns
+- developer ergonomics
 
 ---
 
 ## Helpful Feedback Format
 
-When sharing feedback, please include:
-
 ```txt
-1. What were you trying to build?
-2. What worked well?
-3. What was confusing?
-4. What response fields were useful?
-5. What response fields were missing?
-6. Did traceability help?
-7. What SDK or integration would you want next?
-8. Would you use this in a real AI product? Why or why not?
+What were you trying to build or test?
+
+Which surface did you use?
+Governance Lab / API / integration / docs
+
+What worked well?
+
+What was confusing or difficult?
+
+Which governance or trace information was useful?
+
+What evidence or metadata was missing?
+
+Would this fit a real AI product? Why or why not?
+
+What should we test or improve next?
 ```
 
 ---
 
-## Example Feedback
+## Evidence Beats General Impressions
 
-```txt
-I tested NEES with a customer support chatbot prototype.
+This is useful:
 
-What worked:
-- The API was simple to call.
-- Trace ID is useful for debugging.
-- Mode field makes sense.
+> In three equivalent tests the request was ALLOW twice and CLARIFY once, with no context change. Here are the sanitized traces and reproduction steps.
 
-What was confusing:
-- I need clearer explanation of governance.status.
-- I want examples for blocked or policy-limited responses.
+This is harder to act on:
 
-Suggestion:
-- Add a JavaScript SDK.
-- Add webhook support for trace review.
-```
+> The governance felt inconsistent.
+
+Both forms of feedback are welcome, but reproducible evidence can be investigated and regression-tested.
 
 ---
 
-## Where to Share Feedback
+## Protect Sensitive Information
 
-Open a GitHub issue using the **Feedback** template.
+Never include:
+
+- API keys
+- passwords
+- credentials
+- production secrets
+- private user data
+- sensitive infrastructure details
+
+Serious security vulnerabilities should be reported privately rather than through a public issue.
