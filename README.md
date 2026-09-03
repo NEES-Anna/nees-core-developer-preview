@@ -21,6 +21,7 @@ NEES Core Engine is a governed AI runtime that sits between an application reque
 | Understand where NEES sits in an AI stack | [Architecture](docs/architecture.md) |
 | Understand ALLOW / CLARIFY / ESCALATE / BLOCK | [Governance Decision Model](docs/governance-decisions.md) |
 | Test NEES without integrating code first | [Governance Lab Guide](docs/governance-lab.md) |
+| See NEES inside a live application | [Naina Persona](https://naina.nees.cloud/) |
 | Integrate the API | [15-Minute Integration Guide](docs/15-minute-integration-guide.md) |
 | Inspect the public API contract | [API Reference](docs/api-reference.md) |
 | Try to produce a wrong governance decision | [Challenge NEES](docs/challenge-nees.md) |
@@ -29,7 +30,8 @@ NEES Core Engine is a governed AI runtime that sits between an application reque
 
 ### Quick Actions
 
-- **Test the public surface:** https://nees.cloud
+- **Test the Governance Lab:** https://nees.cloud
+- **Open the Naina Persona reference app:** https://naina.nees.cloud/
 - **Developer Preview API:** https://api.nees.cloud
 - **Structured feedback form:** https://docs.google.com/forms/d/e/1FAIpQLSeQCG3MATzk5OGhSb77ioDIWlOwhtcNTTdpU4TIOHAeGgT_rg/viewform?usp=header
 - **Contact:** info@nees.cloud
@@ -196,7 +198,11 @@ See [Challenge NEES](docs/challenge-nees.md).
 
 ## Naina Persona — Reference Implementation
 
+**Live app:** https://naina.nees.cloud/
+
 **Naina Persona** is a real application proof surface showing NEES Core Engine V2 inside a governed AI companion/persona integration.
+
+Developers can use the live app to see how a downstream application consumes Core governance decisions in a real interface, while the Governance Lab remains the primary deliberate testing surface for structured governance evaluation.
 
 It demonstrates why integration layers must respect governance outcomes rather than flattening them into a generic success/failure response.
 
@@ -324,7 +330,7 @@ docs/
   governance-decisions.md       ALLOW / CLARIFY / ESCALATE / BLOCK model
   governance-lab.md             Public evaluation guidance
   challenge-nees.md             How to report wrong governance decisions
-  naina-persona-reference.md    Reference implementation notes
+  naina-persona-reference.md    Live reference implementation notes
   assurance-scope.md            Evidence and assurance boundaries
   15-minute-integration-guide.md
   api-reference.md
@@ -375,6 +381,7 @@ RC2 has completed internal automated and Governance Lab validation. It should st
 **Nainacore Emotional Tech**
 
 - Website: https://nees.cloud
+- Naina Persona: https://naina.nees.cloud/
 - Runtime API: https://api.nees.cloud
 - Email: info@nees.cloud
 
