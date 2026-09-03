@@ -1,237 +1,299 @@
-# NEES Core Engine — Add Governance to Any AI App in 10 Minutes
+# NEES Core Engine V2 — Developer Preview RC2
 
-**NEES Core Engine** is a governed AI runtime layer for production AI applications.
+**Public evaluation, integration, and evidence surface for NEES Core Engine V2.**
 
-Most AI apps directly call a model and return the response.
+NEES Core Engine is a governed AI runtime that sits between an application and its model provider. It evaluates request intent, authority, policy boundaries, memory/context scope, cost constraints, routing, and execution conditions before a response or action is allowed to continue.
 
-NEES adds a governance layer between your application and the model provider — helping control AI behavior through policy, identity, memory scope, traceability, and runtime decision logic.
-
-This repository is a public developer preview for builders who want to understand, test, and review the NEES Core Engine API.
+> This repository does **not** expose the private NEES Core Engine source code.
+>
+> It exists so developers can understand the public architecture, integrate with the runtime, test governance behavior, challenge decisions, and report evidence.
 
 ---
 
-## What is NEES Core Engine?
+## Current Baseline
 
-NEES Core Engine is not another chatbot.
+**Developer Preview RC2** is the current validated working baseline for the agreed core governance scope.
 
-It is a governance runtime designed to help AI products become more controlled, traceable, and production-ready.
+RC2 includes:
 
-Instead of sending user input directly to an AI model, your application sends the request through NEES Core Engine.
+- request understanding for informational and action-oriented requests
+- intent classification across explain, guidance, mutate, and execute paths
+- resource, scope, sensitivity, authority, and side-effect interpretation
+- semantic-assisted understanding
+- governance decisions: **ALLOW, CLARIFY, ESCALATE, REFUSE/BLOCK**
+- GovernanceIntentFrame-based resource and operation separation
+- cost governance and per-request enforcement
+- context budgeting with preservation of mandatory governance context
+- model/provider routing and fallback controls
+- governed cache behavior
+- trace metadata, policy lineage, and audit-oriented observability
+
+RC2 is feature-complete for its agreed core scope. Future changes should be driven by real usage, deployment hardening, developer feedback, regressions, or new evidence.
+
+---
+
+## What Problem Does NEES Solve?
+
+A direct AI integration often looks like this:
 
 ```txt
-User
-  ↓
-Your App
-  ↓
-NEES Core Engine
-  ↓
-Governance Layer
-  - Policy control
-  - Identity rules
-  - Memory scope
-  - Runtime mode
-  - Trace ID
-  - Explainability metadata
-  ↓
-Model Provider
-  ↓
-Governed Response
+User → App → Model → Response / Action
 ```
 
----
+That leaves critical production questions scattered across prompts and application code:
 
-## Why NEES?
+- Is the request informational or asking for an external action?
+- Does the user have authority for the requested operation?
+- Is the resource merely referenced, or is an operation requested against it?
+- Should ambiguity be clarified before proceeding?
+- Should the request be escalated or blocked?
+- What session/context is allowed to influence this decision?
+- Was a decision traceable after the fact?
 
-Production AI needs more than better prompts.
-
-AI apps need:
-
-- Policy enforcement
-- Traceability
-- Identity consistency
-- Memory boundaries
-- Runtime governance
-- Safer response control
-- Reviewable decision metadata
-
-NEES Core Engine is built to provide that governance layer.
-
----
-
-## Developer Preview
-
-We are inviting AI builders, developers, indie hackers, researchers, and product teams to test and review NEES Core Engine.
-
-You can use this repo to:
-
-- Explore the NEES governance flow
-- Run quickstart examples
-- Understand the API contract
-- Request a developer API key
-- Share technical feedback
-- Suggest real-world use cases
-- Help validate NEES as production AI governance infrastructure
-
-NEES API keys are currently issued manually for early reviewers and selected builders.
-
----
-
-## Quickstart
-
-For the fastest first test, see the [15-Minute Integration Guide](docs/15-minute-integration-guide.md).
-
-### 1. Request a Developer API Key
-
-NEES Core Engine is currently available through controlled developer preview.
-
-To request access:
-
-- Open a GitHub issue using the **API Key Request** template
-- Or visit: https://www.nainaaicreation.com
-- Product hub: https://nees.cloud
-
-### 2. Run a Test Request
-
-Python example:
-
-```python
-import requests
-
-response = requests.post(
-    "https://api.nees.cloud/chat",
-    headers={
-        "Authorization": "Bearer YOUR_NEES_API_KEY"
-    },
-    json={
-        "message": "Respond as a governed assistant",
-        "mode": "supportive",
-        "session_id": "demo-session"
-    },
-    timeout=45
-)
-
-print(response.json())
-```
-
-Node.js example:
-
-```js
-const response = await fetch('https://api.nees.cloud/chat', {
-  method: 'POST',
-  headers: {
-    Authorization: 'Bearer YOUR_NEES_API_KEY',
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    message: 'Respond as a governed assistant',
-    mode: 'supportive',
-    session_id: 'demo-session',
-  }),
-})
-
-const data = await response.json()
-console.log(data)
-```
-
----
-
-## Example Response
-
-A governed NEES response may include fields such as:
-
-```json
-{
-  "reply": "Governed assistant response...",
-  "trace_id": "trace_xxxxx",
-  "engine_source": "core_engine",
-  "governance": {
-    "status": "allowed",
-    "mode_used": "supportive",
-    "policy_applied": true,
-    "memory_scope": "session"
-  }
-}
-```
-
-Exact response fields may evolve during the developer preview.
-
----
-
-## Repository Contents
+NEES moves those questions into a runtime governance path.
 
 ```txt
-examples/
-  python_quickstart.py      Basic Python API example
-  node_quickstart.js        Basic Node.js API example
-  curl_quickstart.md        cURL / terminal request example
+User Request
+    ↓
+Application / Agent
+    ↓
+NEES Core Engine V2
+    ↓
+Request Understanding
+    ↓
+Intent + Resource + Capability + Authority
+    ↓
+Policy / Context / Cost / Routing Governance
+    ↓
+ALLOW | CLARIFY | ESCALATE | BLOCK
+    ↓
+Model / Tool / No Action
+    ↓
+Governed Response + Trace Evidence
+```
+
+See [Architecture](docs/architecture.md) and [Governance Decision Model](docs/governance-decisions.md).
+
+---
+
+## Governance Decisions
+
+### ALLOW
+The request is sufficiently understood and permitted to continue within the governed path.
+
+### CLARIFY
+The system does not yet have enough reliable information to safely choose the intended operation, scope, resource, or authority path. No external action should occur while clarification is required.
+
+### ESCALATE
+The request requires a higher-assurance, higher-authority, or review-oriented path rather than normal execution.
+
+### REFUSE / BLOCK
+The requested operation is not permitted under the active governance conditions. The blocked action must not execute.
+
+The goal is not to maximize blocking. The goal is to preserve legitimate assistance while restricting actions that should not proceed.
+
+---
+
+## Governance Lab
+
+The **NEES Governance Lab** is the public testing surface for evaluating NEES Core Engine V2 behavior.
+
+Use it to test:
+
+- legitimate requests that should be allowed
+- ambiguous requests that should require clarification
+- authority-sensitive or risky operations
+- prompts that should escalate or be blocked
+- action vs no-action enforcement
+- session/context continuity and boundary behavior
+- traceability and structured governance evidence
+
+Product hub: **https://nees.cloud**
+
+The Governance Lab is intended to make governance behavior observable instead of asking developers to trust a marketing claim.
+
+Read [Governance Lab Testing Guide](docs/governance-lab.md).
+
+---
+
+## Can You Make NEES Produce the Wrong Governance Decision?
+
+**Please try.**
+
+If NEES:
+
+- allows something it should block
+- blocks something legitimate
+- fails to clarify real ambiguity
+- clarifies when the request is already clear
+- escalates unnecessarily
+- executes an action when the decision requires no action
+- crosses a session, identity, memory, or context boundary
+- produces inconsistent governance for equivalent conditions
+
+open a **Governance Challenge** issue.
+
+A strong report includes:
+
+```txt
+Prompt / request:
+Expected governance decision:
+Actual governance decision:
+Expected action state:
+Actual action state:
+Session/context setup:
+Trace ID or evidence (if available):
+Why the result appears incorrect:
+Reproduction steps:
+```
+
+This repo is designed to turn developer criticism into reproducible governance evidence.
+
+See [Challenge NEES](docs/challenge-nees.md).
+
+---
+
+## Naina Persona — Reference Implementation
+
+**Naina Persona** is a real application proof surface showing NEES Core Engine V2 inside a governed AI companion/persona integration.
+
+It demonstrates why integration layers must respect governance outcomes rather than flattening them into a generic success/failure response.
+
+A production integration issue previously exposed this distinction: a legitimate Core `CLARIFY` outcome had been mishandled in the Persona adapter path. The integration layer was corrected so `CLARIFY → NO ACTION → CORE → RESPONSE` is preserved while normal `ALLOW → EXECUTED → CORE → RESPONSE` behavior continues to work.
+
+That makes Naina Persona useful as a reference implementation for an important principle:
+
+> The application must honor the governance decision contract, not merely call the governance runtime.
+
+Read [Naina Persona Reference Implementation](docs/naina-persona-reference.md).
+
+---
+
+## Quick Integration
+
+The public API remains available at:
+
+```txt
+https://api.nees.cloud
+```
+
+Basic request:
+
+```bash
+curl -X POST "https://api.nees.cloud/chat" \
+  -H "Authorization: Bearer YOUR_NEES_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "Explain AI governance in simple terms.",
+    "mode": "supportive",
+    "session_id": "developer-preview-test"
+  }'
+```
+
+For onboarding, see:
+
+- [15-Minute Integration Guide](docs/15-minute-integration-guide.md)
+- [API Reference](docs/api-reference.md)
+- [Request Developer Access](docs/request-api-key.md)
+- [Python example](examples/python_quickstart.py)
+- [Node.js example](examples/node_quickstart.js)
+- [cURL example](examples/curl_quickstart.md)
+
+API fields and preview behavior may evolve as evidence is collected.
+
+---
+
+## Assurance and Evidence
+
+NEES Core Engine has already completed a bounded independent governance assurance milestone on the earlier RC1 baseline with the agreed test boundary reported **VERIFIED / GREEN**.
+
+That milestone is evidence for the tested boundary; it is not presented as universal certification of every possible request, integration, policy, deployment, or future release.
+
+RC2 is the current developer-preview baseline. Future independent assurance for RC2 should be scoped against an explicit release milestone, evidence boundary, workflow, and test set.
+
+Read [Assurance Scope](docs/assurance-scope.md).
+
+---
+
+## What This Repository Contains
+
+```txt
+README.md                        Public developer-preview entry point
 
 docs/
-  governance-flow.md        How NEES sits between app and model
-  api-reference.md          Basic API request and response contract
-  request-api-key.md        How to request developer access
-  use-cases.md              Suggested use cases
-  developer-feedback.md     How to share useful technical feedback
+  architecture.md               Public runtime architecture
+  governance-decisions.md       ALLOW / CLARIFY / ESCALATE / BLOCK model
+  governance-lab.md             Public evaluation guidance
+  challenge-nees.md             How to report wrong governance decisions
+  naina-persona-reference.md    Reference implementation notes
+  assurance-scope.md            Evidence and assurance boundaries
+  15-minute-integration-guide.md
+  api-reference.md
+  request-api-key.md
+  developer-feedback.md
+  use-cases.md
+
+examples/
+  python_quickstart.py
+  node_quickstart.js
+  curl_quickstart.md
+
+.github/ISSUE_TEMPLATE/
+  governance-challenge.md
+  feedback.md
+  bug-report.md
+  api-key-request.md
 ```
 
 ---
 
-## What You Can Test
+## What This Repository Does NOT Contain
 
-During developer preview, developers can test:
+This public repository intentionally does **not** contain:
 
-- Basic governed AI response flow
-- Session-based interaction
-- Mode-based runtime behavior
-- Trace ID visibility
-- API response clarity
-- Integration into prototype AI apps
+- private NEES Core Engine source code
+- proprietary governance implementation logic
+- internal policy files
+- production secrets or credentials
+- private admin endpoints
+- internal infrastructure configuration
+- private datasets or sensitive evidence
 
----
-
-## What This Repo Is Not
-
-This repository does not expose the private NEES Core Engine source code.
-
-It is a public developer preview repo for:
-
-- API examples
-- Documentation
-- Developer onboarding
-- Feedback collection
-- Integration testing
-
-Sensitive internal systems, private governance logic, production secrets, admin endpoints, and internal policy files are not included.
+Architecture documentation describes observable/public system behavior without publishing the private implementation.
 
 ---
 
-## Share Feedback
+## Developer Feedback
 
-We are especially looking for feedback on:
+We are especially interested in evidence about:
 
-- API clarity
-- Governance response format
-- Traceability usefulness
-- Developer experience
-- Possible SDK needs
-- Real production use cases
-- Safety and reliability concerns
+- wrong governance decisions
+- false positives and false negatives
+- ambiguous-intent handling
+- authority and resource-boundary mistakes
+- session/context leakage
+- action/no-action enforcement failures
+- trace usefulness
+- integration friction
+- API contract clarity
+- missing real-world governance cases
 
-Open an issue using the **Feedback** template.
+Use the GitHub issue templates so reports remain reproducible and reviewable.
 
 ---
 
-## Built by
+## Built By
 
 **Nainacore Emotional Tech**
 
-Official website: https://www.nainaaicreation.com
-Product hub: https://nees.cloud
-Live API: https://api.nees.cloud
+- Company: https://www.nainaaicreation.com
+- NEES product hub: https://nees.cloud
+- Runtime API: https://api.nees.cloud
 
 ---
 
-## Status
+## Developer Preview Notice
 
-NEES Core Engine is currently in controlled developer preview.
+NEES Core Engine V2 RC2 is a developer-preview release, not a claim of universal safety or correctness.
 
-API behavior, fields, documentation, and access rules may evolve as developer feedback is collected.
+The purpose of this repository is to make the system easier to inspect, integrate, challenge, and improve through evidence.
